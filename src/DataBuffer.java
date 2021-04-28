@@ -8,13 +8,63 @@ public class DataBuffer<T> implements  Iterable<T> {
     int length = 0;
 
     public static void main(String[] args){
-        DataBuffer buffe = new DataBuffer(5);
-        buffe.enqueue(1);
-        buffe.enqueue(2);
-        buffe.enqueue(3);
-        buffe.enqueue(4);
-        buffe.enqueue(5);
-        buffe.changeBufferSize(3);
+        DataBuffer buffe = new DataBuffer(15);
+        buffe.enqueue("a");
+        buffe.enqueue("b");
+        buffe.enqueue("c");
+        buffe.enqueue("g");
+        buffe.enqueue("d");
+        buffe.enqueue("e");
+        buffe.enqueue("f");
+        buffe.enqueue("g");
+        buffe.enqueue("f");
+        buffe.changeBufferSize(10);
+
+
+        //buffe.enqueue("a");
+        //buffe.enqueue("b");
+        //buffe.enqueue("c");
+        //buffe.enqueue("d");
+        //buffe.enqueue("e");
+        //buffe.enqueue("f");
+        //buffe.enqueue("g");
+        //buffe.dequeue();
+        //buffe.dequeue();
+        //buffe.enqueue("h");
+        //buffe.enqueue("i");
+        //buffe.changeBufferSize(15);
+        //buffe.enqueue("j");
+        //buffe.enqueue("k");
+        //buffe.enqueue("l");
+        //buffe.enqueue("m");
+        //buffe.enqueue("n");
+        //buffe.enqueue("o");
+        //buffe.enqueue("p");
+        //buffe.enqueue("q");
+        //buffe.dequeue();
+        //buffe.dequeue();
+        //buffe.dequeue();
+        //buffe.dequeue();
+        //buffe.dequeue();
+        //buffe.dequeue();
+        //buffe.enqueue("s");
+        //buffe.enqueue("s");
+        //buffe.enqueue("s");
+        //buffe.enqueue("s");
+        //buffe.enqueue("s");
+        //buffe.changeBufferSize(10);
+        //buffe.enqueue("test");
+        //buffe.enqueue(1);
+        //buffe.enqueue(2);
+        //buffe.enqueue(3);
+        //buffe.enqueue(4);
+        //buffe.enqueue(5);
+        //buffe.dequeue();
+        //buffe.dequeue();
+        //buffe.dequeue();
+        //buffe.enqueue(1);
+        //buffe.enqueue(2);
+        //buffe.changeBufferSize(3);
         //buffe.dequeue();
         //buffe.dequeue();
         //buffe.dequeue();
@@ -50,43 +100,6 @@ public class DataBuffer<T> implements  Iterable<T> {
         length++;
     }
 
-    public T[] trimArray(int size){
-
-        T[] b = (T[]) new Object[size];
-
-        while(length != size){
-            if(back == 0){
-                back = bufferSize-1;
-            }else{
-                back--;
-            }
-            length--;
-        }
-
-        boolean done = false;
-        while(!done){
-            int counter = 0;
-            if(back > front){
-                for (int i = front; i < back; i++) {
-                    b[counter] = a[front+i];
-                    counter++;
-                }
-                done = true;
-            }else{
-                for (int i = 0; i < back; i++) {
-                    b[counter] = a[i];
-                    counter++;
-                }
-                for (int i = front; i < length; i++) {
-                    b[counter] = a[i];
-                    counter++;
-                }
-                done = true;
-            }
-        }
-        return b;
-    }
-
     public void dequeue(){
         if(isEmpty()){
             System.out.println("Det finns ju fan inga element här jue");
@@ -104,7 +117,43 @@ public class DataBuffer<T> implements  Iterable<T> {
         if(newBufferSize == bufferSize){
             return;
         }
-        a = trimArray(newBufferSize);
+
+        if(newBufferSize < length){ //make buffer smaller
+            while(!(length == newBufferSize)){
+                if(back == 0){
+                    back = bufferSize-1;
+                }else{
+                    back--;
+                }
+                length--;
+            }
+        }
+
+        T[] b = (T[]) new Object[newBufferSize];
+        boolean done = false;
+        while(!done){
+            int counter = 0;
+            if(back > front){
+                for (int i = front; i <= back; i++) {
+                    b[counter] = a[front+counter];
+                    counter++;
+                }
+                done = true;
+            }else{
+                for (int i = front; i < bufferSize; i++) {
+                    b[counter] = a[i];
+                    counter++;
+                }
+                for (int i = 0; i <= back; i++) {
+                    b[counter] = a[i];
+                    counter++;
+                }
+                done = true;
+            }
+        }
+        front = 0;
+        back = length-1;
+        a = b;
         bufferSize = newBufferSize;
 
         //a = b;
