@@ -53,28 +53,7 @@ public class DataBuffer<T> implements  Iterable<T> {
         //buffe.enqueue("s");
         //buffe.enqueue("s");
         //buffe.changeBufferSize(10);
-        //buffe.enqueue("test");
-        //buffe.enqueue(1);
-        //buffe.enqueue(2);
-        //buffe.enqueue(3);
-        //buffe.enqueue(4);
-        //buffe.enqueue(5);
-        //buffe.dequeue();
-        //buffe.dequeue();
-        //buffe.dequeue();
-        //buffe.enqueue(1);
-        //buffe.enqueue(2);
-        //buffe.changeBufferSize(3);
-        //buffe.dequeue();
-        //buffe.dequeue();
-        //buffe.dequeue();
-        //buffe.enqueue(3);
-        //buffe.enqueue(4);
-        //buffe.enqueue(5);
-        //buffe.changeBufferSize(15);
-        //buffe.enqueue(30);
-        //buffe.enqueue(40);
-        //buffe.enqueue(50);
+        //buffe.enqueue("test"); // should break
     }
 
     public DataBuffer(int bufferSize){
@@ -155,35 +134,6 @@ public class DataBuffer<T> implements  Iterable<T> {
         back = length-1;
         a = b;
         bufferSize = newBufferSize;
-
-        //a = b;
-        /*if(back > front){
-            if(newBufferSize > bufferSize){
-                for (int i = 0; i < bufferSize; i++) {
-                    b[i] = a[i];
-                }
-            }else{
-                while(length < newBufferSize){
-                    dequeue();
-                }
-                for (int i = 0; i < bufferSize; i++) {
-                    b[i] = a[i];
-                }
-            }
-        }else{
-            if(newBufferSize > bufferSize){
-
-
-
-            }else{
-                while(length < newBufferSize){
-                    dequeue();
-                }
-            }
-
-            // now it's a fit :D
-
-        }*/
     }
 
     public boolean isFull(){
